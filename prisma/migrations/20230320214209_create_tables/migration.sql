@@ -2,8 +2,8 @@
 CREATE TABLE "products" (
     "id" SERIAL NOT NULL,
     "description" TEXT NOT NULL,
-    "retail_price" DOUBLE PRECISION NOT NULL,
-    "wholesale_price" DOUBLE PRECISION NOT NULL,
+    "retail_price" INTEGER NOT NULL,
+    "wholesale_price" INTEGER NOT NULL,
 
     CONSTRAINT "products_pkey" PRIMARY KEY ("id")
 );
