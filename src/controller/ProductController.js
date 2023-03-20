@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/extensions
-import validateRequest from '../utils/validate-request.js';
+import validateRequest from '../utils/ValidateRequest.js';
 
 export default class ProductController {
   #productDAO;
@@ -13,21 +13,22 @@ export default class ProductController {
 
   async create(request, response) {
     const { description, retailPrice, wholesalePrice } = request.body;
-    let { categories } = request.body;
+    const { categories } = request.body;
+    // if (typeof categories === 'number') categories = [categories];
 
-    if (typeof categories === 'number') categories = [categories];
-
-    if (!validateRequest({ description, retailPrice, wholesalePrice }) || !categories.length) {
+    if (!validateRequest({ description, retailPrice, wholesalePrice }) || !categories?.length) {
       return response.status(400).json({ message: 'Please fill all required fields' });
     }
 
     try {
-      await this.#productDAO.create({
-        description,
-        retailPrice,
-        wholesalePrice,
+      await this.#productDAO.create(
+        {
+          description,
+          retailPrice: Number(retailPrice),
+          wholesalePrice: Number(wholesalePrice),
+        },
         categories,
-      });
+      );
       return response.status(201).json({ message: 'Product created successfully' });
     } catch (err) {
       return response.status(500).json({ message: err.message });
