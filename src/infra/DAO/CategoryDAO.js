@@ -1,6 +1,6 @@
 import DatabaseConnection from '../prismaConnection.js'
 
-export default class CategoryDAO {
+export class CategoryDAO {
   #prisma
 
   constructor () {

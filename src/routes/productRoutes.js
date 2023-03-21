@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { ProductController } from '../controller/ProductController.js'
-import CategoryDAO from '../infra/DAO/CategoryDAO.js'
+import { CategoryDAO } from '../infra/DAO/CategoryDAO.js'
 import { ProductDAO } from '../infra/DAO/ProductDAO.js'
 
 const productRoutes = Router()
@@ -15,12 +15,5 @@ productRoutes.get('/', (request, response) => {
 productRoutes.post('/', (request, response) => {
   productController.create(request, response)
 })
-
-// productRoutes.put('/', (request, response) => {
-
-// });
-// productRoutes.delete('/', (request, response) => {
-
-// });
 
 export { productRoutes }
