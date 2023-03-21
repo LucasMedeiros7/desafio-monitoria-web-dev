@@ -1,3 +1,5 @@
+import { validateRequest } from '../validations/validateProductRequest.js'
+
 export class ProductController {
   #productDAO
   #categoryDAO
@@ -8,10 +10,13 @@ export class ProductController {
   }
 
   async create (request, response) {
+    if (!validateRequest.safeParse(request.body).success) {
+      return response.status(400).json({ message: 'Preencha todos os campos corretamente' })
+    }
     const { description, retailPrice, wholesalePrice } = request.body
-    const { categories } = request.body
-
     try {
+      const { categories } = request.body
+
       await this.#productDAO.create(
         {
           description,
@@ -20,7 +25,7 @@ export class ProductController {
         },
         categories
       )
-      return response.status(201).json({ message: 'Product created successfully' })
+      return response.status(201).json({ message: 'Produto criado com sucesso' })
     } catch (err) {
       return response.status(500).json({ message: err.message })
     }
