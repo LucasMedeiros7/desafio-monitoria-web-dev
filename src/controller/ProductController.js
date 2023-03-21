@@ -13,9 +13,14 @@ export class ProductController {
     if (!validateRequest.safeParse(request.body).success) {
       return response.status(400).json({ message: 'Preencha todos os campos corretamente' })
     }
-    const { description, retailPrice, wholesalePrice } = request.body
+
+    const { description, retailPrice, wholesalePrice, categories } = request.body
+
     try {
-      const { categories } = request.body
+      const categoriesExists = await this.#categoryDAO.findById(categories)
+      if (!categoriesExists.length) {
+        return response.status(400).json({ message: 'ID informado não existente' })
+      }
 
       await this.#productDAO.create(
         {
@@ -31,7 +36,7 @@ export class ProductController {
     }
   }
 
-  async list (request, response) {
+  async list (_request, response) {
     try {
       const products = await this.#productDAO.find()
       return response.json(products)
