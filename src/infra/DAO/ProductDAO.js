@@ -1,35 +1,33 @@
-/* eslint-disable import/extensions */
-import DatabaseConnection from '../db/prismaConnection.js';
+import DatabaseConnection from '../prismaConnection.js'
 
-export default class ProductDAO {
-  #prisma;
+export class ProductDAO {
+  #prisma
 
-  constructor() {
-    this.#prisma = DatabaseConnection;
+  constructor () {
+    this.#prisma = DatabaseConnection
   }
 
-  async create(data, categories) {
-    const { description, retailPrice, wholesalePrice } = data;
-    const connectCategories = categories.map((id) => ({
-      id,
-    }));
+  async create (data, categories) {
+    const { description, retailPrice, wholesalePrice } = data
+    const connectCategories = categories.map((id) => ({ id }))
+
     await this.#prisma.product.create({
       data: {
         description,
         retail_price: retailPrice,
         wholesale_price: wholesalePrice,
         categories: {
-          connect: connectCategories,
-        },
-      },
-    });
+          connect: connectCategories
+        }
+      }
+    })
   }
 
-  async find() {
+  async find () {
     return this.#prisma.product.findMany({
       include: {
-        categories: true,
-      },
-    });
+        categories: true
+      }
+    })
   }
 }
