@@ -13,8 +13,10 @@ export class ProductController {
     if (!validateRequest.safeParse(request.body).success) {
       return response.status(400).json({ message: 'Preencha todos os campos corretamente' })
     }
+    const { description, retailPrice, wholesalePrice } = request.body
 
-    const { description, retailPrice, wholesalePrice, categories } = request.body
+    let { categories } = request.body
+    if (typeof categories === 'number') categories = [categories]
 
     try {
       const categoriesExists = await this.#categoryDAO.findById(categories)

@@ -79,7 +79,7 @@ describe('POST /products', () => {
       description: 'Produto de Teste',
       retailPrice: 150,
       wholesalePrice: 150,
-      categories: [categoryID.id]
+      categories: categoryID.id
     }
     const token = generateToken({ isAdmin: true })
     const response = await request(app).post('/products').set('Authorization', `Bearer ${token}`).send(payload)
