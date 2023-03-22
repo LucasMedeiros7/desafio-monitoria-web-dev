@@ -19,5 +19,11 @@ productRoutes.get('/:id', (request, response) => {
 productRoutes.post('/', authMiddleware, (request, response) => {
   productController.create(request, response)
 })
+productRoutes.put('/:id', authMiddleware, (request, response) => {
+  productController.update(request, response)
+})
+productRoutes.delete('/:id', authMiddleware, (request, response) => {
+  productController.delete(request, response)
+})
 
 export { productRoutes }

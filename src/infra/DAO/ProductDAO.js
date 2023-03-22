@@ -45,4 +45,24 @@ export class ProductDAO {
     })
     return product
   }
+
+  async update (id, data) {
+    const { description, retailPrice, wholesalePrice } = data
+
+    const product = await this.#prisma.product.update({
+      where: {
+        id
+      },
+      data: {
+        description,
+        retail_price: retailPrice,
+        wholesale_price: wholesalePrice
+      }
+    })
+    return product
+  }
+
+  async delete (id) {
+    await this.#prisma.product.delete({ where: { id } })
+  }
 }
