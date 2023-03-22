@@ -27,10 +27,36 @@ describe('GET /products', () => {
     expect(response.status).toBe(200)
 
     const firstProduct = response.body[0]
-    console.log(firstProduct)
     expect(firstProduct).toHaveProperty('id')
     expect(firstProduct).toHaveProperty('description')
     expect(firstProduct.categories[0]).toBe('Categoria teste')
+  })
+
+  it('Deve retornar uma lista um produto quando for passado o ID de parametro', async () => {
+    const product = await Prisma.product.create({
+      data: {
+        description: 'Novo produto de teste2',
+        retail_price: 150,
+        wholesale_price: 150,
+        categories: {
+          create: {
+            name: 'Categoria teste'
+          }
+        }
+      }
+    })
+    const response = await request(app).get(`/products/${product.id}`)
+    expect(response.status).toBe(200)
+
+    expect(response.body.id).toBe(product.id)
+    expect(response.body.description).toBe('Novo produto de teste2')
+  })
+
+  it('Deve retornar um erro quando for passado um Id inexistente', async () => {
+    const response = await request(app).get(`/products/${150}`)
+
+    expect(response.status).toBe(404)
+    expect(response.body).toEqual({ message: 'Produto não existe' })
   })
 })
 

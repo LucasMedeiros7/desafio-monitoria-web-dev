@@ -13,6 +13,9 @@ const productController = new ProductController(productDAO, categoryDAO)
 productRoutes.get('/', (request, response) => {
   productController.list(request, response)
 })
+productRoutes.get('/:id', (request, response) => {
+  productController.listById(request, response)
+})
 productRoutes.post('/', authMiddleware, (request, response) => {
   productController.create(request, response)
 })

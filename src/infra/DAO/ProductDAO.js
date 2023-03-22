@@ -36,4 +36,13 @@ export class ProductDAO {
       }
     })
   }
+
+  async findById (id) {
+    const product = await this.#prisma.product.findFirst({
+      where: {
+        id
+      }
+    })
+    return product
+  }
 }
