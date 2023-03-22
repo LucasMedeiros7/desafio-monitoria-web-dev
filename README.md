@@ -1,8 +1,6 @@
 ## Desafio Resilia Educação - Backend e-commerce.
 Sistema de gerenciamento de produtos e categorias.
 
-### [Description of challenge](https://github.com/Impact-Plataform/Banco-de-talentos/blob/main/backend/readme.md)
-
 ## Tecnologias:
 O projeto foi desenvolvido utilizando as seguintes tecnologias:
 - [Node.js](https://nodejs.org/)
