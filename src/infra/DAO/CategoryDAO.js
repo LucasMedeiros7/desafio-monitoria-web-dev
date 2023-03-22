@@ -41,4 +41,16 @@ export class CategoryDAO {
       throw new Error(`Erro ao buscar categoria: ${error.message}`)
     }
   }
+
+  async update (id, name) {
+    const category = await this.#prisma.category.update({
+      where: { id },
+      data: { name }
+    })
+    return category
+  }
+
+  async delete (id) {
+    await this.#prisma.category.delete({ where: { id } })
+  }
 }

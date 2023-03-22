@@ -14,5 +14,11 @@ categoryRoutes.get('/', (request, response) => {
 categoryRoutes.post('/', authMiddleware, (request, response) => {
   categoryController.create(request, response)
 })
+categoryRoutes.put('/', authMiddleware, (request, response) => {
+  categoryController.update(request, response)
+})
+categoryRoutes.delete('/', authMiddleware, (request, response) => {
+  categoryController.delete(request, response)
+})
 
 export { categoryRoutes }
