@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "test": "vitest ./tests",
+    "migration:prod": "npx prisma migrate deploy && npm run seed",
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
     "migration:dev": "npx prisma migrate dev && npm run seed",
