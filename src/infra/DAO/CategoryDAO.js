@@ -36,6 +36,7 @@ export class CategoryDAO {
           }
         }
       })
+
       return categories
     } catch (error) {
       throw new Error(`Erro ao buscar categoria: ${error.message}`)

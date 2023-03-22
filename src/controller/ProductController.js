@@ -20,7 +20,7 @@ export class ProductController {
 
     try {
       const categoriesExists = await this.#categoryDAO.findById(categories)
-      if (!categoriesExists.length) {
+      if (!categoriesExists.length || categoriesExists.length !== categories.length) {
         return response.status(400).json({ message: 'ID de categoria informado não existente' })
       }
 

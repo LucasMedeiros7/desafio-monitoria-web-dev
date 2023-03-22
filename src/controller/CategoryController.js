@@ -7,13 +7,13 @@ export class CategoryController {
 
   async create (request, response) {
     const { name } = request.body
-    const categoryAlreadyExists = await this.#categoryDAO.findByName(name)
-
-    if (categoryAlreadyExists) {
-      return response.status(404).json({ message: 'Categoria já cadastrada' })
-    }
 
     try {
+      const categoryAlreadyExists = await this.#categoryDAO.findByName(name)
+      if (categoryAlreadyExists) {
+        return response.status(404).json({ message: 'Categoria já cadastrada' })
+      }
+
       const category = await this.#categoryDAO.save(name)
       return response.status(201).json({
         message: 'Categoria criada com sucesso',
@@ -39,7 +39,6 @@ export class CategoryController {
 
     try {
       const categoryExists = await this.#categoryDAO.findById(Number(id))
-      console.log(categoryExists)
 
       if (!categoryExists.length) {
         return response.status(404).json({ message: 'Categoria não existe' })
