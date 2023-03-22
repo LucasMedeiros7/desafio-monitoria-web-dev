@@ -1,4 +1,4 @@
-import { validateRequest } from '../validations/validateProductRequest.js'
+import { validateRequest } from '../utils/validateProductRequest.js'
 
 export class ProductController {
   #productDAO
@@ -10,6 +10,7 @@ export class ProductController {
   }
 
   async create (request, response) {
+    console.log(request.body, validateRequest.safeParse(request.body).success)
     if (!validateRequest.safeParse(request.body).success) {
       return response.status(400).json({ message: 'Preencha todos os campos corretamente' })
     }
@@ -19,7 +20,7 @@ export class ProductController {
     try {
       const categoriesExists = await this.#categoryDAO.findById(categories)
       if (!categoriesExists.length) {
-        return response.status(400).json({ message: 'ID informado não existente' })
+        return response.status(400).json({ message: 'ID de categoria informado não existente' })
       }
 
       await this.#productDAO.create(
