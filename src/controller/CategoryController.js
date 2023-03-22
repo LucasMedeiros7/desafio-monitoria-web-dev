@@ -39,8 +39,9 @@ export class CategoryController {
 
     try {
       const categoryExists = await this.#categoryDAO.findById(Number(id))
+      console.log(categoryExists)
 
-      if (!categoryExists) {
+      if (!categoryExists.length) {
         return response.status(404).json({ message: 'Categoria não existe' })
       }
 
@@ -56,7 +57,7 @@ export class CategoryController {
 
     try {
       const categoryExists = await this.#categoryDAO.findById(Number(id))
-      if (!categoryExists) {
+      if (!categoryExists.length) {
         return response.status(404).json({ message: 'Produto não existe' })
       }
 
