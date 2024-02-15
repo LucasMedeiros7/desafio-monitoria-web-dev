@@ -24,7 +24,7 @@
     "supertest": "^6.3.3",
     "swagger-ui-express": "^4.6.2",
     "vitest": "^0.29.7",
-    "zod": "^3.21.4"
+    "zod": "^3.22.3"
   },
   "devDependencies": {
     "@types/node": "^18.15.3",
